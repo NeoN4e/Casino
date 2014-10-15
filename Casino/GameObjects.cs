@@ -8,6 +8,29 @@ using System.Threading.Tasks;
 
 namespace Casino
 {
+    /// <summary>
+    /// Класс Сонвертер для отображения на Карт На Форме
+    /// </summary>
+    [System.Windows.Data.ValueConversion(typeof(Cart), typeof(string))]
+    class CartImgConverter : System.Windows.Data.IValueConverter
+    {
+
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value is Cart) return String.Format("Карта с номиналом {0}", (value as Cart).Score);
+            else return value.ToString();
+
+            //return new BitmapImage(
+            //    new Uri(
+            //        System.IO.Directory.GetCurrentDirectory() + "\\" + (string)value));
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return null;
+        }
+    }
+
     /// <summary>Описывает карты</summary>
     [Serializable]
     class Cart 
@@ -17,9 +40,21 @@ namespace Casino
 
         { this.Score = score; }
 
+        public System.Windows.Controls.Image GetImage()
+        {
+            System.Windows.Media.Imaging.BitmapImage bi = new System.Windows.Media.Imaging.BitmapImage(new Uri("Card.PNG", UriKind.RelativeOrAbsolute));
+            System.Windows.Media.Imaging.CroppedBitmap cb = new System.Windows.Media.Imaging.CroppedBitmap(bi, new System.Windows.Int32Rect(5 + 64 * 0, 5, 59, 80));
+           
+            System.Windows.Controls.Image img = new System.Windows.Controls.Image();
+            img.Source = cb;
+            img.Margin = new System.Windows.Thickness(5, 0, 0, 0);
+
+            return img;
+        }
+
         public override string ToString()
         {
-            return "Cart "+this.Score;
+            return ""+this.Score+" ";
         }
     }
 
@@ -51,9 +86,6 @@ namespace Casino
         /// <summary>Коллекция Карт Игрока</summary>
         List<Cart> CartPool = new List<Cart>();
 
-        System.Collections.ObjectModel.ObservableCollection<Cart> ocolection = new System.Collections.ObjectModel.ObservableCollection<Cart>();
-        public System.Collections.ObjectModel.ObservableCollection<Cart> list { get { return ocolection; } } 
-
         public Player(PlayerType pt = PlayerType.PC)
         {
             this.pt = pt;
@@ -72,7 +104,6 @@ namespace Casino
         public int AddCard(Cart c)
         {
             CartPool.Add(c);
-            ocolection.Add(c);
             this.Score += c.Score;
 
             if (OnCartAdd != null) OnCartAdd(this, c);
@@ -102,7 +133,11 @@ namespace Casino
 
         public IEnumerator<Cart> GetEnumerator()
         {
-           return this.CartPool.GetEnumerator();
+           //return this.CartPool.GetEnumerator();
+            foreach (Cart item in CartPool)
+            { 
+                yield return item;
+            }
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()

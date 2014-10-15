@@ -55,10 +55,13 @@ namespace Casino
             Binding bind = new Binding(); // Создаём привязку
             //bind.Path = new PropertyPath("list"); //Смя Свойства!!!!
             bind.Source = this.human; // Источник данніх
+            //bind.Converter = new CartImgConverter();
+            //bind.ConverterParameter
             //bind.UpdateSourceTrigger = UpdateSourceTrigger.Default;
 
             //bind.Mode = BindingMode.TwoWay;
             ICPlayer.SetBinding(ItemsControl.ItemsSourceProperty, bind);
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -71,7 +74,7 @@ namespace Casino
        //     //Удалить
        //     BitmapImage bi = new BitmapImage(new Uri("Card.PNG", UriKind.RelativeOrAbsolute));
        //     CroppedBitmap cb;
-       //     Image img;
+      //     Image img;
 
        //     for (int i = 0; i < 10; i++)
        //     {
