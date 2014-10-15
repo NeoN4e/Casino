@@ -45,6 +45,10 @@ namespace Casino
 
             this.table.PlayerList.Add(human);
 
+            //DataTemplate dt = new DataTemplate(typeof(Cart));
+            //ICPlayer.ItemTemplate = dt;
+       
+
             Player Casino = new Player(PlayerType.PC);
             //Casino.OnCartAdd += (p, e) => { this.CasinoScore.Content = p.Score; };
             this.table.PlayerList.Add(Casino);
@@ -53,11 +57,13 @@ namespace Casino
             table.StartGame();
 
             Binding bind = new Binding(); // Создаём привязку
-            //bind.Path = new PropertyPath("list"); //Смя Свойства!!!!
+           // bind.Path = new PropertyPath(".Score"); //Смя Свойства!!!!
             bind.Source = this.human; // Источник данніх
+            
             //bind.Converter = new CartImgConverter();
+            
             //bind.ConverterParameter
-            //bind.UpdateSourceTrigger = UpdateSourceTrigger.Default;
+            //bind.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
 
             //bind.Mode = BindingMode.TwoWay;
             ICPlayer.SetBinding(ItemsControl.ItemsSourceProperty, bind);

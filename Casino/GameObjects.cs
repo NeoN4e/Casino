@@ -8,54 +8,32 @@ using System.Threading.Tasks;
 
 namespace Casino
 {
-    /// <summary>
-    /// Класс Сонвертер для отображения на Карт На Форме
-    /// </summary>
-    [System.Windows.Data.ValueConversion(typeof(Cart), typeof(string))]
-    class CartImgConverter : System.Windows.Data.IValueConverter
-    {
-
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            if (value is Cart) return String.Format("Карта с номиналом {0}", (value as Cart).Score);
-            else return value.ToString();
-
-            //return new BitmapImage(
-            //    new Uri(
-            //        System.IO.Directory.GetCurrentDirectory() + "\\" + (string)value));
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            return null;
-        }
-    }
-
-    /// <summary>Описывает карты</summary>
+   /// <summary>Описывает карты</summary>
     [Serializable]
     class Cart 
     {
-        public int Score;
-        public Cart(int score)
+        /// <summary>Тип Карты Пика Крестик Чирва Бубна</summary>
+        public enum CartType { }
 
-        { this.Score = score; }
+        /// <summary>Очки текущей Карты</summary>
+        public int Score{ get; set; }
 
-        public System.Windows.Controls.Image GetImage()
+        /// <summary>Картинк текущей карты</summary>
+        public System.Windows.Media.Imaging.CroppedBitmap ImgeSourse
         {
-            System.Windows.Media.Imaging.BitmapImage bi = new System.Windows.Media.Imaging.BitmapImage(new Uri("Card.PNG", UriKind.RelativeOrAbsolute));
-            System.Windows.Media.Imaging.CroppedBitmap cb = new System.Windows.Media.Imaging.CroppedBitmap(bi, new System.Windows.Int32Rect(5 + 64 * 0, 5, 59, 80));
-           
-            System.Windows.Controls.Image img = new System.Windows.Controls.Image();
-            img.Source = cb;
-            img.Margin = new System.Windows.Thickness(5, 0, 0, 0);
+            get
+            {
+                System.Windows.Media.Imaging.BitmapImage bi = new System.Windows.Media.Imaging.BitmapImage(new Uri("Card.PNG", UriKind.RelativeOrAbsolute));
+                System.Windows.Media.Imaging.CroppedBitmap cb = new System.Windows.Media.Imaging.CroppedBitmap(bi, new System.Windows.Int32Rect(5 + 64 * 0, 5, 59, 80));
 
-            return img;
+                return cb;
+            }
         }
 
-        public override string ToString()
-        {
-            return ""+this.Score+" ";
-        }
+        /// <summary>Конструктор</summary>
+        public Cart(int score) { this.Score = score; }
+
+        
     }
 
     /// <summary>ТипИгрока</summary>
@@ -74,9 +52,9 @@ namespace Casino
             { 
                 this.score = value;
 
-                if (this.score == 21 && On21Score != null) On21Score(this, null);
+                //if (this.score == 21 && On21Score != null) On21Score(this, null);
 
-                if (this.score > 21 && OnOverflow != null) OnOverflow(this, null);
+                //if (this.score > 21 && OnOverflow != null) OnOverflow(this, null);
             }
         }
         
@@ -106,7 +84,7 @@ namespace Casino
             CartPool.Add(c);
             this.Score += c.Score;
 
-            if (OnCartAdd != null) OnCartAdd(this, c);
+            //if (OnCartAdd != null) OnCartAdd(this, c);
 
             if (CollectionChanged != null) CollectionChanged(this,new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
@@ -122,15 +100,16 @@ namespace Casino
         }
 
         /// <summary>Получение карты игроком</summary>
-        public event EventDelegate OnCartAdd;
-        public delegate void EventDelegate(Player p,Cart c);
+        //public event EventDelegate OnCartAdd;
+        //public delegate void EventDelegate(Player p,Cart c);
 
         /// <summary>Очко</summary>
-        public event EventDelegate On21Score;
+        //public event EventDelegate On21Score;
 
         /// <summary>Перебор</summary>
-        public event EventDelegate OnOverflow;
+        //public event EventDelegate OnOverflow;
 
+        #region Интерфейсы
         public IEnumerator<Cart> GetEnumerator()
         {
            //return this.CartPool.GetEnumerator();
@@ -139,15 +118,13 @@ namespace Casino
                 yield return item;
             }
         }
-
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return this.CartPool.GetEnumerator();
         }
 
-
         public event NotifyCollectionChangedEventHandler CollectionChanged;
-
+        #endregion
     }
    
 }
