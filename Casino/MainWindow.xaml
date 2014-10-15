@@ -6,7 +6,7 @@
     <Window.Resources>
         <DataTemplate x:Key="CartTemplate" DataType="local:Cart">
             <StackPanel Margin="5,0">
-                <TextBlock Text="{Binding Score}" HorizontalAlignment="Center"/>
+                <TextBlock Text="{Binding Score}" HorizontalAlignment="Center" Height="20"/>
                 <Image Source="{Binding ImgeSourse}"/>
             </StackPanel>
         </DataTemplate>
@@ -19,23 +19,19 @@
             </RadialGradientBrush>
         </Grid.Background>
 
-        <StackPanel x:Name="SPCasino" Height="160" VerticalAlignment="Top">
-        </StackPanel>
-        <!--
-        <StackPanel x:Name="SPPlayer" Height="160" VerticalAlignment="Top" Margin="5,160,0,0" Orientation="Horizontal"/>
-        -->
-        <ItemsControl x:Name="ICPlayer" Margin="10,164,10,45" BorderThickness="5" ItemTemplate="{DynamicResource CartTemplate}" HorizontalContentAlignment="Stretch" BorderBrush="#FFF30D0D">
+        <ItemsControl x:Name="SPCasino" Margin="0,0,0,235"/>
+
+        <ItemsControl x:Name="ICPlayer" Margin="0,190,0,45" BorderThickness="5" ItemTemplate="{DynamicResource CartTemplate}" HorizontalContentAlignment="Stretch" BorderBrush="#FFF30D0D" VerticalContentAlignment="Stretch">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel IsItemsHost="True" Orientation="Horizontal">
                     </StackPanel>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-     
+
         </ItemsControl>
         <Button Content="Start" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127" Margin="5,0,0,5" Click="StartGame" Grid.Row="2"/>
-        <Button Content="Close" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="116" Margin="0,0,5,5" Grid.Row="2"/>
+        <Button Content="Close" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="116" Margin="0,0,5,5" Grid.Row="2" Click="Button_Close"/>
         <Button Content="Еще" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127" Margin="137,0,0,5" Click="Button_Click" Grid.Row="2"/>
-
     </Grid>
 </Window>

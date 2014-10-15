@@ -24,15 +24,6 @@ namespace Casino
         public MainWindow()
         {
             InitializeComponent();
-
-            //Binding bind = new Binding(); // Создаём привязку
-            //bind.Path = new PropertyPath("human"); //Смя Свойства!!!!
-            //bind.Source = this; // Источник данніх
-            List<Button> lb = new List<Button>();
-            lb.Add(new Button());
-            lb.Add(new Button());
-
-            ICPlayer.ItemsSource= lb;
         }
         
         private void StartGame(object sender, RoutedEventArgs re)
@@ -41,7 +32,7 @@ namespace Casino
             this.table = new Table();
 
             //Добавим игроков
-            this.human = new Player(PlayerType.Human);
+            this.human = new Player(Player.PlayerType.Human);
                     
             //human.OnCartAdd     += (p, e) => { this.PlayerScore.Content = p.Score; };
             //human.OnOverflow    += (p, c) => { this.PlayerScore.Foreground = Brushes.Red;};
@@ -51,9 +42,9 @@ namespace Casino
 
             //DataTemplate dt = new DataTemplate(typeof(Cart));
             //ICPlayer.ItemTemplate = dt;
-       
 
-            Player Casino = new Player(PlayerType.PC);
+
+            Player Casino = new Player(Player.PlayerType.PC);
             //Casino.OnCartAdd += (p, e) => { this.CasinoScore.Content = p.Score; };
             this.table.PlayerList.Add(Casino);
  
@@ -78,6 +69,12 @@ namespace Casino
         {
             this.human.AddCard(this.table.GetNextCart());
         }
+
+        private void Button_Close(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
 
        // void InitCartImage()
        // {

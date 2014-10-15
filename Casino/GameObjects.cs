@@ -49,17 +49,15 @@ namespace Casino
             this.cartId = id;
             this.ct = type;
         }
-
-        
     }
-
-    /// <summary>ТипИгрока</summary>
-    enum PlayerType {Human,PC}
 
     /// <summary>Описывает игрока казино</summary>
     [Serializable]
     class Player : IEnumerable<Cart> , INotifyCollectionChanged
     {
+        /// <summary>ТипИгрока</summary>
+        public enum PlayerType { Human, PC }
+
         /// <summary>Набранные Очки</summary>
         int score = 0;
         public int Score 
