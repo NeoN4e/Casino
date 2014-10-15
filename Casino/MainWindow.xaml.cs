@@ -28,7 +28,11 @@ namespace Casino
             //Binding bind = new Binding(); // Создаём привязку
             //bind.Path = new PropertyPath("human"); //Смя Свойства!!!!
             //bind.Source = this; // Источник данніх
-         
+            List<Button> lb = new List<Button>();
+            lb.Add(new Button());
+            lb.Add(new Button());
+
+            ICPlayer.ItemsSource= lb;
         }
         
         private void StartGame(object sender, RoutedEventArgs re)

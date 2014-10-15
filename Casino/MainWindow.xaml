@@ -5,9 +5,9 @@
         Title="MainWindow" Height="450" Width="525">
     <Window.Resources>
         <DataTemplate x:Key="CartTemplate" DataType="local:Cart">
-            <StackPanel>
+            <StackPanel Margin="5,0">
                 <TextBlock Text="{Binding Score}" HorizontalAlignment="Center"/>
-                <Image Source="{Binding ImgeSourse}" Margin="5,0"></Image>
+                <Image Source="{Binding ImgeSourse}"/>
             </StackPanel>
         </DataTemplate>
     </Window.Resources>
@@ -24,16 +24,18 @@
         <!--
         <StackPanel x:Name="SPPlayer" Height="160" VerticalAlignment="Top" Margin="5,160,0,0" Orientation="Horizontal"/>
         -->
-        <ItemsControl x:Name="ICPlayer" Margin="10,0,10,45" BorderThickness="5" ItemTemplate="{DynamicResource CartTemplate}" Height="211" VerticalAlignment="Bottom" HorizontalContentAlignment="Stretch">
+        <ItemsControl x:Name="ICPlayer" Margin="10,164,10,45" BorderThickness="5" ItemTemplate="{DynamicResource CartTemplate}" HorizontalContentAlignment="Stretch" BorderBrush="#FFF30D0D">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel IsItemsHost="True" Orientation="Horizontal"/>
+                    <StackPanel IsItemsHost="True" Orientation="Horizontal">
+                    </StackPanel>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-
+     
         </ItemsControl>
         <Button Content="Start" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127" Margin="5,0,0,5" Click="StartGame" Grid.Row="2"/>
         <Button Content="Close" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="116" Margin="0,0,5,5" Grid.Row="2"/>
         <Button Content="Еще" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127" Margin="137,0,0,5" Click="Button_Click" Grid.Row="2"/>
+
     </Grid>
 </Window>

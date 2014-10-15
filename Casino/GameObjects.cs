@@ -12,11 +12,19 @@ namespace Casino
     [Serializable]
     class Cart 
     {
-        /// <summary>Тип Карты Пика Крестик Чирва Бубна</summary>
-        public enum CartType { }
+        /// <summary>Масть Карты Пика Крестик Чирва Бубна</summary>
+        public enum CartType { Picas, Clovers, Hearts, Squares }
 
         /// <summary>Очки текущей Карты</summary>
-        public int Score{ get; set; }
+        public int Score
+        { 
+            get
+            { 
+                if (cartId == 12) return 11; //туз
+                if (cartId <= 8) return this.cartId + 2; //От 2-х до 10
+                else return this.cartId - 7; //Валет дама король
+            }
+        }
 
         /// <summary>Картинк текущей карты</summary>
         public System.Windows.Media.Imaging.CroppedBitmap ImgeSourse
@@ -24,14 +32,23 @@ namespace Casino
             get
             {
                 System.Windows.Media.Imaging.BitmapImage bi = new System.Windows.Media.Imaging.BitmapImage(new Uri("Card.PNG", UriKind.RelativeOrAbsolute));
-                System.Windows.Media.Imaging.CroppedBitmap cb = new System.Windows.Media.Imaging.CroppedBitmap(bi, new System.Windows.Int32Rect(5 + 64 * 0, 5, 59, 80));
+                System.Windows.Media.Imaging.CroppedBitmap cb = new System.Windows.Media.Imaging.CroppedBitmap(bi, new System.Windows.Int32Rect(5 + 64 * this.cartId, 5 + 85 * (int)this.ct, 59, 80));
 
                 return cb;
             }
         }
 
+        /// <summary>порядковый номер карты от 0 до 12(туз)</summary>
+        int cartId;
+        /// <summary>Масть</summary>
+        CartType ct;
+
         /// <summary>Конструктор</summary>
-        public Cart(int score) { this.Score = score; }
+        public Cart(int id,CartType type) 
+        { 
+            this.cartId = id;
+            this.ct = type;
+        }
 
         
     }

@@ -33,12 +33,12 @@ namespace Casino
             //Инициализация колоды
             this.CartPool = new List<Cart>();
 
-            for (int i = 2; i <= 11; i++)
+            for (int i = 0; i <= 12; i++)
             {
-                this.CartPool.Add(new Cart(i));//4 масти от 2-х до 11
-                this.CartPool.Add(new Cart(i));
-                this.CartPool.Add(new Cart(i));
-                this.CartPool.Add(new Cart(i));
+                this.CartPool.Add(new Cart(i, Cart.CartType.Picas));//4 масти от 2-х до 11
+                this.CartPool.Add(new Cart(i, Cart.CartType.Clovers));
+                this.CartPool.Add(new Cart(i, Cart.CartType.Squares));
+                this.CartPool.Add(new Cart(i, Cart.CartType.Hearts));
             }
 
             //Выдадим по 2- стартовые карты всем игрокам
