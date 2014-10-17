@@ -31,9 +31,10 @@ namespace Casino
         {
             get
             {
-                System.Windows.Media.Imaging.BitmapImage bi = new System.Windows.Media.Imaging.BitmapImage(new Uri("Card.PNG", UriKind.RelativeOrAbsolute));
-                System.Windows.Media.Imaging.CroppedBitmap cb = new System.Windows.Media.Imaging.CroppedBitmap(bi, new System.Windows.Int32Rect(5 + 64 * this.cartId, 5 + 85 * (int)this.ct, 59, 80));
-
+                //System.Windows.Media.Imaging.BitmapImage bi = new System.Windows.Media.Imaging.BitmapImage(new Uri("Card.PNG", UriKind.RelativeOrAbsolute));
+                System.Windows.Media.Imaging.BitmapSource bs = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(Properties.Resources.Card.GetHbitmap(), IntPtr.Zero, System.Windows.Int32Rect.Empty, System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
+                System.Windows.Media.Imaging.CroppedBitmap cb = new System.Windows.Media.Imaging.CroppedBitmap(bs, new System.Windows.Int32Rect(5 + 64 * this.cartId, 5 + 85 * (int)this.ct, 59, 80));
+                
                 return cb;
             }
         }
@@ -53,7 +54,7 @@ namespace Casino
 
     /// <summary>Описывает игрока казино</summary>
     [Serializable]
-    class Player : IEnumerable<Cart> , INotifyCollectionChanged
+    class Player : IEnumerable<Cart> , INotifyCollectionChanged, INotifyPropertyChanged
     {
         /// <summary>ТипИгрока</summary>
         public enum PlayerType { Human, PC }
@@ -67,6 +68,7 @@ namespace Casino
             { 
                 this.score = value;
 
+                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("Score"));
                 //if (this.score == 21 && On21Score != null) On21Score(this, null);
 
                 //if (this.score > 21 && OnOverflow != null) OnOverflow(this, null);
@@ -101,7 +103,7 @@ namespace Casino
 
             //if (OnCartAdd != null) OnCartAdd(this, c);
 
-            if (CollectionChanged != null) CollectionChanged(this,new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            if (CollectionChanged != null) CollectionChanged(this ,new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
             return this.Score;
         }
@@ -139,6 +141,7 @@ namespace Casino
         }
 
         public event NotifyCollectionChangedEventHandler CollectionChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
         #endregion
     }
    

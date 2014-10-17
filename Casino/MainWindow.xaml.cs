@@ -61,8 +61,18 @@ namespace Casino
             //bind.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
 
             //bind.Mode = BindingMode.TwoWay;
-            ICPlayer.SetBinding(ItemsControl.ItemsSourceProperty, bind);
+            //ICPlayer.SetBinding(ItemsControl.ItemsSourceProperty, bind);
+
+            //sp1.Children.Add(this.human);
+            //ICPlayer.SetBinding(ItemsControl.ItemsSourceProperty, bind);
             
+           // Sp.Children.Add(this.human);
+            Binding Lbbind = new Binding();
+            //Lbbind.Path = new PropertyPath("Score");
+            Lbbind.Source = this.human;
+            Lbbind.StringFormat = "{0:##.#}";
+            LbPlayer.SetBinding(Label.ContentProperty, Lbbind);
+            //Lb1.SetBinding(ListBox.sou, bind); 
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
