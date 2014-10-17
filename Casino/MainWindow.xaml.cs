@@ -32,6 +32,11 @@ namespace Casino
             Binding PlayerBind = new Binding();
             PlayerBind.Source = Table.Human;
             LbPlayer.SetBinding(Label.ContentProperty, PlayerBind);
+
+            Binding StatysBind = new Binding();
+            StatysBind.Path = new PropertyPath("GameStatys");
+            StatysBind.Source = Table;
+            LbWiner.SetBinding(Label.ContentProperty, StatysBind);
         }
 
         public MainWindow()
