@@ -1,0 +1,18 @@
+﻿<Window x:Class="Casino.ChoseWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ChoseWindow" Height="300" Width="300">
+    <StackPanel>
+        <StackPanel.Background>
+            <RadialGradientBrush>
+                <GradientStop Color="#FF6ED853"/>
+                <GradientStop Color="#FF27B008" Offset="0.746"/>
+            </RadialGradientBrush>
+        </StackPanel.Background>
+        <Button Content="Table 1"/>
+        <Button Content="Table 2"/>
+        <Button Content="Table 3"/>
+        <Button Content="Table 4"/>
+        <Button Content="Table 5" Click="Button_Click"/>
+    </StackPanel>
+</Window>
