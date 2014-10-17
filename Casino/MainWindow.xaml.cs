@@ -18,8 +18,21 @@ namespace Casino
     
     public partial class MainWindow : Window
     {
-        Table table;
-        Player human;
+        Game Table;
+       
+        /// <summary>Бинд объектов на форму</summary>
+        void Bind()
+        {
+            //Бинд объектов на форму
+            Binding CasinoBind = new Binding();
+            CasinoBind.Source = Table.Pc;
+            LbCasino.SetBinding(Label.ContentProperty, CasinoBind);
+
+
+            Binding PlayerBind = new Binding();
+            PlayerBind.Source = Table.Human;
+            LbPlayer.SetBinding(Label.ContentProperty, PlayerBind);
+        }
 
         public MainWindow()
         {
@@ -28,56 +41,11 @@ namespace Casino
         
         private void StartGame(object sender, RoutedEventArgs re)
         {
-            //Создадим стол
-            this.table = new Table();
+            //Создадим стол игру
+            this.Table = new Game();
+            Table.StartGame();
 
-            //Добавим игроков
-            this.human = new Player(Player.PlayerType.Human);
-                    
-            //human.OnCartAdd     += (p, e) => { this.PlayerScore.Content = p.Score; };
-            //human.OnOverflow    += (p, c) => { this.PlayerScore.Foreground = Brushes.Red;};
-            //human.On21Score     += (p, c) => { this.PlayerScore.Foreground = Brushes.Green; };
-
-            this.table.PlayerList.Add(human);
-
-            //DataTemplate dt = new DataTemplate(typeof(Cart));
-            //ICPlayer.ItemTemplate = dt;
-
-
-            Player Casino = new Player(Player.PlayerType.PC);
-            //Casino.OnCartAdd += (p, e) => { this.CasinoScore.Content = p.Score; };
-            this.table.PlayerList.Add(Casino);
- 
-            //Начнем
-            table.StartGame();
-
-            Binding bind = new Binding(); // Создаём привязку
-           // bind.Path = new PropertyPath(".Score"); //Смя Свойства!!!!
-            bind.Source = this.human; // Источник данніх
-            
-            //bind.Converter = new CartImgConverter();
-            
-            //bind.ConverterParameter
-            //bind.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-
-            //bind.Mode = BindingMode.TwoWay;
-            //ICPlayer.SetBinding(ItemsControl.ItemsSourceProperty, bind);
-
-            //sp1.Children.Add(this.human);
-            //ICPlayer.SetBinding(ItemsControl.ItemsSourceProperty, bind);
-            
-           // Sp.Children.Add(this.human);
-            Binding Lbbind = new Binding();
-            //Lbbind.Path = new PropertyPath("Score");
-            Lbbind.Source = this.human;
-            Lbbind.StringFormat = "{0:##.#}";
-            LbPlayer.SetBinding(Label.ContentProperty, Lbbind);
-            //Lb1.SetBinding(ListBox.sou, bind); 
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.human.AddCard(this.table.GetNextCart());
+            Bind();
         }
 
         private void Button_Close(object sender, RoutedEventArgs e)
@@ -85,23 +53,15 @@ namespace Casino
             this.Close();
         }
 
+        private void PlayerGetCart(object sender, RoutedEventArgs e)
+        {
+            this.Table.HumanAddCart();
+        }
 
-       // void InitCartImage()
-       // {
-       //     //Удалить
-       //     BitmapImage bi = new BitmapImage(new Uri("Card.PNG", UriKind.RelativeOrAbsolute));
-       //     CroppedBitmap cb;
-      //     Image img;
-
-       //     for (int i = 0; i < 10; i++)
-       //     {
-       //         cb = new CroppedBitmap(bi, new Int32Rect(5 + 64 * i, 5, 59, 80));
-       //         img = new Image();
-       //         img.Source = cb;
-       //         img.Margin = new Thickness(5, 0, 0, 0);
-       //         this.SpCasino.Children.Add(img);
-       //     }
-       //}
+        private void EndGame(object sender, RoutedEventArgs e)
+        {
+            this.Table.EndGame();
+        }
 
 
     }

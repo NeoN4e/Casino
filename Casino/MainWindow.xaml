@@ -13,7 +13,9 @@
 
         <DataTemplate x:Key="PlayerTemplate" DataType="local:Player">
             <StackPanel Margin="5,0">
-                <Label Content="{Binding Score}"></Label>
+                <TextBlock Text="{Binding Score, StringFormat='Score is {0}'}">
+                    
+                </TextBlock>    
                 <ItemsControl ItemTemplate="{DynamicResource CartTemplate}" ItemsSource="{Binding}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -34,39 +36,15 @@
             </RadialGradientBrush>
         </Grid.Background>
         <StackPanel x:Name="Sp" Margin="0,0,0,44">
-
             <Label x:Name="LbCasino" ContentTemplate="{DynamicResource PlayerTemplate}"></Label>
             <Label x:Name="LbPlayer" ContentTemplate="{DynamicResource PlayerTemplate}"></Label>
-         
         </StackPanel>
 
         <Button Content="Start"  Width="120" Click="StartGame" Margin="10,0,0,5" HorizontalAlignment="Left" Height="34" VerticalAlignment="Bottom"  />
-        <Button Content="Еще"  Width="120" Click="Button_Click" Margin="135,0,0,5" Height="34" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+        <Button Content="Еще"  Width="120" Click="PlayerGetCart" Margin="135,0,0,5" Height="34" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
         <Button Content="Close"  Width="120" Click="Button_Close" Margin="0,0,11,5" Height="34" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
-        <Button Content="Себе" Click="Button_Click" Margin="0,0,136,5" Height="34" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120"/>
-
+        <Button Content="Себе" Click="EndGame" Margin="0,0,136,5" Height="34" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120"/>
 
     </Grid>
 
-    <!--
-
-    
-       
-
-        <ItemsControl x:Name="SPCasino" Margin="0,0,0,235"/>
-
-        <ItemsControl x:Name="ICPlayer" Margin="0,190,0,45" BorderThickness="5" ItemTemplate="{DynamicResource CartTemplate}" HorizontalContentAlignment="Stretch" BorderBrush="#FFF30D0D" VerticalContentAlignment="Stretch">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel IsItemsHost="True" Orientation="Horizontal">
-                    </StackPanel>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-
-        </ItemsControl>
-        <Button Content="Start" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127" Margin="5,0,0,5" Click="StartGame" Grid.Row="2"/>
-        <Button Content="Close" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="116" Margin="0,0,5,5" Grid.Row="2" Click="Button_Close"/>
-        <Button Content="Еще" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127" Margin="137,0,0,5" Click="Button_Click" Grid.Row="2"/>
-    </Grid>
-    -->
 </Window>
