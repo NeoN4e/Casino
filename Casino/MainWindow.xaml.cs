@@ -19,7 +19,7 @@ namespace Casino
     public partial class MainWindow : Window
     {
         Game Table;
-       
+        
         /// <summary>Бинд объектов на форму</summary>
         void Bind()
         {
@@ -44,19 +44,21 @@ namespace Casino
             InitializeComponent();
         }
 
-        //public MainWindow(Game table)
-        //{
-        //    InitializeComponent();
-        //    this.Table = table;
-        //    Bind();
-        //}
+        public MainWindow(string tableId)
+        {
+           
+            InitializeComponent();
+
+            int gameId = Int32.Parse(tableId);
+            this.Table = Game.LoadGame(gameId);
+            Bind();
+        }
 
         private void StartGame(object sender, RoutedEventArgs re)
         {
             //Создадим стол игру
-            this.Table = new Game();
+            //this.Table = new Game();
             Table.StartGame();
-
             Bind();
         }
 
@@ -67,29 +69,41 @@ namespace Casino
 
         private void PlayerGetCart(object sender, RoutedEventArgs e)
         {
-            this.Table.HumanAddCart();
+            try
+            {
+                this.Table.HumanAddCart();
+            }
+            catch (NullReferenceException ex)
+            {
+                MessageBox.Show("Для начала нужно нажать СТАРТ!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void EndGame(object sender, RoutedEventArgs e)
         {
-            this.Table.EndGame();
+            try
+            {
+                this.Table.EndGame();
+            }
+            catch (NullReferenceException ex)
+            {
+                MessageBox.Show("Для начала нужно нажать СТАРТ!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (this.Table != null)
             {
-
-                System.IO.MemoryStream ms = new System.IO.MemoryStream();
-                try
-                {
-                    System.Runtime.Serialization.Formatters.Binary.BinaryFormatter bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                    bf.Serialize(ms, this.Table);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                Game.SaveGame(this.Table);
             }
         }
 

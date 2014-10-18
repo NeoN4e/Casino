@@ -10,7 +10,77 @@ namespace Casino
     [Serializable]
     class Game : INotifyPropertyChanged
     {
+        #region Статические члены
+        
+        /// <summary>ССылка на неуправляимую память для хранения игр</summary>
+        static System.IO.MemoryStream MS = new System.IO.MemoryStream();
+
+        /// <summary>Чтение из памяти</summary>
+        static System.Collections.Hashtable GetSaveTable()
+        {
+            try
+            {
+                if (MS.Length == 0) return new System.Collections.Hashtable();
+
+                //Само чтение
+                MS.Seek(0, System.IO.SeekOrigin.Begin);
+                System.Runtime.Serialization.Formatters.Binary.BinaryFormatter bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                
+                return (System.Collections.Hashtable)bf.Deserialize(MS);
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message);
+                throw ex;
+            }
+        }
+
+        /// <summary>Сохранение игры</summary>
+        public static bool SaveGame(Game game)
+        {
+            try
+            {
+                System.Collections.Hashtable ht = GetSaveTable();
+
+                if (ht.ContainsKey(game.GameID)) ht.Remove(game.GameID);
+
+                ht.Add(game.GameID,game);
+                
+                MS.Seek(0, System.IO.SeekOrigin.Begin);
+                System.Runtime.Serialization.Formatters.Binary.BinaryFormatter bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                bf.Serialize(MS, ht);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+
+        public static Game LoadGame(int gameId)
+        {
+            try
+            {
+                System.Collections.Hashtable ht = GetSaveTable();
+
+                if (ht.ContainsKey(gameId)) return (Game)ht[gameId];
+
+                return new Game(gameId);
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message);
+                throw ex;  
+            }
+        }
+        #endregion
         #region Поля
+
+        public Game(int gameId)
+        { this.GameID = gameId; }
+
         /// <summary>Игрок Человек</summary>
         public Player Human{get; private set;}
 
@@ -31,6 +101,9 @@ namespace Casino
 
         /// <summary>Коллекция карт текущего стола</summary>
         List<Cart> CartPool;
+
+        /// <summary>Номер стола</summary>
+        int GameID { get; set; }
         #endregion
 
         /// <summary>Берет из колоды карту</summary>

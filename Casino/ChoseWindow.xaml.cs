@@ -27,8 +27,9 @@ namespace Casino
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            
-            MainWindow w = new MainWindow();
+
+            MainWindow w = new MainWindow( (sender as Button).Tag.ToString() );
+            w.Owner = this;
             w.ShowDialog();
 
             this.Show();
