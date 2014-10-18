@@ -46,11 +46,11 @@ namespace Casino
 
         public MainWindow(string tableId)
         {
-           
             InitializeComponent();
 
             int gameId = Int32.Parse(tableId);
             this.Table = Game.LoadGame(gameId);
+            this.Title = "Стол № " + gameId;
             Bind();
         }
 
