@@ -26,8 +26,13 @@ namespace Casino
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            this.Hide();
+            
             MainWindow w = new MainWindow();
             w.ShowDialog();
+
+            this.Show();
         }
+
     }
 }

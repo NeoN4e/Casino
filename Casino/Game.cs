@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Casino
 {
+    [Serializable]
     class Game : INotifyPropertyChanged
     {
         #region Поля
@@ -100,6 +101,7 @@ namespace Casino
             this.Human.AddCard(GetNextCart());
         }
 
+        [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

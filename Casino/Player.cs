@@ -23,7 +23,7 @@ namespace Casino
             private set
             {
                 this.score = value;
-
+                
                 //Уведомление об изменении коллекции( для отображения на форме)
                 if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("Score"));
              }
@@ -102,7 +102,10 @@ namespace Casino
             return this.CartPool.GetEnumerator();
         }
 
+        [field: NonSerialized]
         public event NotifyCollectionChangedEventHandler CollectionChanged;
+        
+        [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
     }

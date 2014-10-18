@@ -43,7 +43,14 @@ namespace Casino
         {
             InitializeComponent();
         }
-        
+
+        //public MainWindow(Game table)
+        //{
+        //    InitializeComponent();
+        //    this.Table = table;
+        //    Bind();
+        //}
+
         private void StartGame(object sender, RoutedEventArgs re)
         {
             //Создадим стол игру
@@ -66,6 +73,24 @@ namespace Casino
         private void EndGame(object sender, RoutedEventArgs e)
         {
             this.Table.EndGame();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (this.Table != null)
+            {
+
+                System.IO.MemoryStream ms = new System.IO.MemoryStream();
+                try
+                {
+                    System.Runtime.Serialization.Formatters.Binary.BinaryFormatter bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                    bf.Serialize(ms, this.Table);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
 
 

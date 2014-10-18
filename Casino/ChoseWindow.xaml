@@ -9,10 +9,10 @@
                 <GradientStop Color="#FF27B008" Offset="0.746"/>
             </RadialGradientBrush>
         </StackPanel.Background>
-        <Button Content="Table 1"/>
-        <Button Content="Table 2"/>
-        <Button Content="Table 3"/>
-        <Button Content="Table 4"/>
+        <Button Content="Table 1" Click="Button_Click"/>
+        <Button Content="Table 2" Click="Button_Click"/>
+        <Button Content="Table 3" Click="Button_Click"/>
+        <Button Content="Table 4" Click="Button_Click"/>
         <Button Content="Table 5" Click="Button_Click"/>
     </StackPanel>
 </Window>

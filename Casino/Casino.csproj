@@ -62,7 +62,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Cart.cs" />
+    <Compile Include="ChoseWindow.xaml.cs">
+      <DependentUpon>ChoseWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Game.cs" />
+    <Page Include="ChoseWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
